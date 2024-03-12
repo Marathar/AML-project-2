@@ -1,1 +1,1 @@
-"# AML-project-2" 
+# Active Machine Learning Mini-project 2

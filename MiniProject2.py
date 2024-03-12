@@ -37,9 +37,13 @@ mappings = {
 # Apply mappings to the dataset
 for category, mapping in mappings.items():
     data[category] = data[category].map(mapping)
-X = data.drop(['class','cap-surface', 'bruises', 'gill-size', 'gill-color', 'stalk-shape', 'stalk-surface-above-ring', 'stalk-surface-below-ring', 'veil-type', 'veil-color','ring-number','ring-type','spore-print-color','habitat'], axis=1)
+X = data.drop('class', axis=1)
 y = data['class']
 ###########################################
+
+# make into numpy array, we dont like data frame :(
+X = X.to_numpy()
+y = y.to_numpy()
 
 Xtest = X[:1000]
 ytest = y[:1000]

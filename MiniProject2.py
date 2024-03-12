@@ -10,15 +10,28 @@ col_names = data.columns
 # Define mappings for each category
 mappings = {
     'class': {'e': 0, 'p': 1},
-    'cap-shape': {'x': 0, 'b': 1, 's': 2, 'f': 3, 'k': 4, 'c': 5},
-    'cap-color': {'n': 0, 'y': 1, 'w': 2, 'g': 3, 'e': 4, 'p': 5, 'b': 6, 'u': 7, 'c': 8, 'r': 9},
-    'odor': {'p': 0, 'a': 1, 'l': 2, 'n': 3, 'f': 4, 'c': 5, 'y': 6, 's': 7, 'm': 8},
-    'gill-attachment': {'f': 0, 'a': 1},
-    'gill-spacing': {'c': 0, 'w': 1},
-    'stalk-root': {'e': 0, 'c': 1, 'b': 2, 'r': 3, '?': 4},
-    'stalk-color-above-ring': {'w': 0, 'g': 1, 'p': 2, 'n': 3, 'b': 4, 'e': 5, 'o': 6, 'c': 7, 'y': 8},
-    'stalk-color-below-ring': {'w': 0, 'p': 1, 'g': 2, 'b': 3, 'n': 4, 'e': 5, 'y': 6, 'o': 7, 'c': 8},
-    'population': {'s': 0, 'n': 1, 'a': 2, 'v': 3, 'y': 4, 'c': 5}
+    'cap-shape': {'b': 0, 'c': 1, 'x': 2, 'f': 3, 'k': 4, 's': 5},
+    'cap-surface': {'f': 0, 'g': 1, 'y': 2, 's': 3},
+    'cap-color': {'n': 0, 'b': 1, 'c': 2, 'g': 3, 'r': 4, 'p': 5, 'u': 6, 'e': 7, 'w': 8, 'y': 9},
+    'bruises': {'t': 0, 'f': 1},
+    'odor': {'a': 0, 'l': 1, 'c': 2, 'y': 3, 'f': 4, 'm': 5, 'n': 6, 'p': 7, 's': 8},
+    'gill-attachment': {'a': 0, 'd': 1, 'f': 2, 'n': 3},
+    'gill-spacing': {'c': 0, 'w': 1,'d' :2},
+    'gill-size': {'b': 0, 'n': 1},
+    'gill-color': {'k': 0, 'n': 1, 'b': 2, 'h': 3, 'g': 4, 'r': 5, 'o': 6, 'p': 7, 'u': 8, 'e': 9, 'w': 10, 'y': 11},
+    'stalk-shape': {'e': 0, 't': 1},
+    'stalk-root': {'b': 0, 'c': 1, 'u': 2, 'e': 3, 'z': 4,'r': 5, '?': 6},
+    'stalk-surface-above-ring': {'f': 0, 'y': 1, 'k': 2, 's':3},
+    'stalk-surface-below-ring': {'f': 0, 'y': 1, 'k': 2, 's':3},
+    'stalk-color-above-ring': {'n': 0, 'b': 1, 'c': 2, 'g': 3, 'o': 4, 'p': 5, 'e': 6, 'w': 7, 'y': 8},
+    'stalk-color-below-ring': {'n': 0, 'b': 1, 'c': 2, 'g': 3, 'o': 4, 'p': 5, 'e': 6, 'w': 7, 'y': 8},
+    'veil-type': {'p': 0, 'u': 1},
+    'veil-color' : {'n': 0, 'o': 1, 'w': 2, 'y': 3},
+    'ring-number': {'n': 0, 'o': 1, 't': 2},
+    'ring-type': {'c': 0, 'e': 1, 'f': 2, 'l': 3, 'n': 4, 'p': 5, 's': 6, 'z': 7},
+    'spore-print-color': {'k': 0, 'n': 1, 'b': 2, 'h': 3, 'r': 4, 'o': 5, 'u': 6, 'w': 7, 'y': 8},
+    'population': {'a': 0, 'c': 1, 'n': 2, 's': 3, 'v': 4, 'y': 5},
+    'habitat': {'g': 0, 'l': 1, 'm': 2, 'p': 3, 'u': 4, 'w': 5, 'd': 6}
 }
 # Apply mappings to the dataset
 for category, mapping in mappings.items():

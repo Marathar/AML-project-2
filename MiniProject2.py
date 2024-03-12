@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data = pd.read_csv(os.path.join(current_dir, "./data/mushrooms.csv"))
@@ -23,9 +24,9 @@ mappings = {
 # Apply mappings to the dataset
 for category, mapping in mappings.items():
     data[category] = data[category].map(mapping)
-
-X = data.drop('class', axis=1)
+X = data.drop(['class','cap-surface', 'bruises', 'gill-size', 'gill-color', 'stalk-shape', 'stalk-surface-above-ring', 'stalk-surface-below-ring', 'veil-type', 'veil-color','ring-number','ring-type','spore-print-color','habitat'], axis=1)
 y = data['class']
+###########################################
 
 Xtest = X[:1000]
 ytest = y[:1000]
@@ -56,4 +57,32 @@ for i in range(25):
     testacc.append((ninit+i*addn,acc)) #add in the accuracy
     print('Model: LR, %i random samples'%(ninit+i*addn))
 
-print("idk man")
+plt.figure()
+plt.title('Test Accuracy, no AL')
+plt.plot(*tuple(np.array(testacc).T))
+plt.show()
+
+###### Unsertainty sampling ######
+testacc_al=[] # The test accuracy of uncertainty sampling
+trainset=order[:ninit]
+Xtrain=np.take(Xpool,trainset,axis=0)
+ytrain=np.take(ypool,trainset,axis=0)
+poolidx=np.arange(len(Xpool),dtype=int)
+poolidx=np.setdiff1d(poolidx,trainset)
+for i in range(25):
+    model.fit(Xtrain,ytrain)
+    acc = model.score(Xtest,ytest)
+    testacc_al.append((ninit+i*addn,acc))
+    uncertain_id = np.argsort(1 - np.max(model.predict_proba(Xpool[poolidx]), axis=1))[-addn:]
+    trainset=np.concatenate([trainset,poolidx[uncertain_id]])
+    poolidx=np.setdiff1d(poolidx,trainset)
+    Xtrain=np.take(Xpool,trainset,axis=0)
+    ytrain=np.take(ypool,trainset,axis=0)
+    print('Model: LR, %i active learning samples'%(ninit+i*addn))
+
+plt.figure()
+plt.title('Test accuracy')
+plt.legend(['No AL', 'Uncertainty sampling'])
+plt.plot(*tuple(np.array(testacc).T))
+plt.plot(*tuple(np.array(testacc_al).T))
+plt.show()

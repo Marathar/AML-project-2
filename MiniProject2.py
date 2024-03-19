@@ -51,7 +51,7 @@ Xpool = X[1000:]
 ypool = y[1000:]
 
 model = LogisticRegression()
-np.random.seed(42)
+np.random.seed(41)
 addn = 2
 order=np.random.permutation(range(len(Xpool)))
 
@@ -74,10 +74,10 @@ for i in range(25):
     testacc.append((ninit+i*addn,acc)) #add in the accuracy
     print('Model: LR, %i random samples'%(ninit+i*addn))
 
-plt.figure()
-plt.title('Test Accuracy, no AL')
-plt.plot(*tuple(np.array(testacc).T))
-plt.show()
+# plt.figure()
+# plt.title('Test Accuracy, no AL')
+# plt.plot(*tuple(np.array(testacc).T))
+# plt.show()
 
 ###### Unsertainty sampling ######
 testacc_al=[] # The test accuracy of uncertainty sampling
@@ -99,7 +99,7 @@ for i in range(25):
 
 plt.figure()
 plt.title('Test accuracy')
-plt.legend(['No AL', 'Uncertainty sampling'])
 plt.plot(*tuple(np.array(testacc).T))
 plt.plot(*tuple(np.array(testacc_al).T))
+plt.legend(['Random sampling', 'Uncertainty sampling'])
 plt.show()

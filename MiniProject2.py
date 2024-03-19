@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestClassifier
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data = pd.read_csv(os.path.join(current_dir, "./data/mushrooms.csv"))
@@ -51,8 +52,10 @@ Xpool = X[1000:]
 ypool = y[1000:]
 
 model = LogisticRegression()
-np.random.seed(41)
-addn = 2
+
+model = RandomForestClassifier()
+#np.random.seed(41)
+addn = 1
 order=np.random.permutation(range(len(Xpool)))
 
 poolidx=np.arange(len(Xpool),dtype='int')
@@ -66,7 +69,7 @@ ytrain=np.take(ypool,trainset,axis=0)
 poolidx=np.setdiff1d(poolidx,trainset)
 
 testacc=[]
-for i in range(25):
+for i in range((len(Xtrain-ninit))):
     model.fit(np.take(Xpool,order[:ninit+i*addn],axis=0),np.take(ypool,order[:ninit+i*addn],axis=0))
     #predict and calculate the accuracy
     acc = model.score(Xtest,ytest)
@@ -86,7 +89,7 @@ Xtrain=np.take(Xpool,trainset,axis=0)
 ytrain=np.take(ypool,trainset,axis=0)
 poolidx=np.arange(len(Xpool),dtype=int)
 poolidx=np.setdiff1d(poolidx,trainset)
-for i in range(25):
+for i in range((len(Xtrain-ninit))):
     model.fit(Xtrain,ytrain)
     acc = model.score(Xtest,ytest)
     testacc_al.append((ninit+i*addn,acc))
